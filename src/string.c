@@ -1,22 +1,22 @@
-/* 
+/*
 ** Copyright (C) 1994, 1995 Enterprise Integration Technologies Corp.
 **         VeriFone Inc./Hewlett-Packard. All Rights Reserved.
 ** Kevin Hughes, kev@kevcom.com 3/11/94
 ** Kent Landfield, kent@landfield.com 4/6/97
-** 
-** This program and library is free software; you can redistribute it and/or 
-** modify it under the terms of the GNU (Library) General Public License 
-** as published by the Free Software Foundation; either version 2 
-** of the License, or any later version. 
-** 
-** This program is distributed in the hope that it will be useful, 
-** but WITHOUT ANY WARRANTY; without even the implied warranty of 
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
-** GNU (Library) General Public License for more details. 
-** 
+**
+** This program and library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU (Library) General Public License
+** as published by the Free Software Foundation; either version 2
+** of the License, or any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+** GNU (Library) General Public License for more details.
+**
 ** You should have received a copy of the GNU (Library) General Public License
-** along with this program; if not, write to the Free Software 
-** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA 
+** along with this program; if not, write to the Free Software
+** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
 */
 
 /*
@@ -42,13 +42,13 @@ char *obfuscate_email_address(char *address)
   struct Push buf;
   int at_mailbox=1;
   char *sentinel;
-  
+
   if (!set_email_address_obfuscation){
     return address;
   }
-  
+
   sentinel=strlen(address)+address;
-  
+
   INIT_PUSH(buf);
   while (address<sentinel){
     if (*address=='@'){
@@ -77,17 +77,17 @@ char *unobfuscate_email_address(char *address){
   int on_hex=0; /* 1==base 16 */
   int at_mailbox=1; /* 1==mailbox part */
   char *sentinel;
-  
+
   char sbuf[uea_sbufsize+1];
   int scount=0;
   struct Push buf;
   long c;
-  
+
   INIT_PUSH(buf);
-  
+
   sentinel=strlen(address)+address;
-  
-  
+
+
   while (address<sentinel){
     switch (*address){
     case '&':
@@ -321,7 +321,7 @@ char *i18n_convstring(char *string, char *fromcharset, char *tocharset, size_t *
     }else{
       *len=origlen*7-bufleft;
     }
-    
+
     *(origconvbuf+*len)=0x0;
   }
 
@@ -792,7 +792,7 @@ char *getvalue(char *line)
 }
 
 
-/* 
+/*
 ** Get rid of Re:'s in a subject and strips spaces at the end
 ** of subjects. Make the subject index much less cluttered.
 **
@@ -881,12 +881,12 @@ int isquote(const char *line)
 
 #ifdef RECOGNIZE_SUPERCITE_QUOTES
     /*
-       ** If there is a ":" in the first column, 
-       ** it means the text is quoted. 
+       ** If there is a ":" in the first column,
+       ** it means the text is quoted.
      */
     if (*lp == ':') {
 	const char *cp;
-	/* 
+	/*
 	   ** Check to make sure that smileys are not
 	   ** intrepreted as Supercite Quotes.
 	 */
@@ -905,7 +905,7 @@ int isquote(const char *line)
 
 #ifdef RECOGNIZE_SUPERCITE_QUOTES
     /*
-       ** recognize citations in the form "  Jane>" 
+       ** recognize citations in the form "  Jane>"
      */
 
     while (*lp &&
@@ -985,7 +985,7 @@ char *convcharsreal(char *line, char *charset, int spamprotect)
 	if (is_iso_8859_1
 	    && (unsigned char) (*line) >= 0x80 && (unsigned char) (*line) <= 0x9f) {
 	  char *unicode_entity;
-	  trio_asprintf (&unicode_entity, 
+	  trio_asprintf (&unicode_entity,
 			 "&#x%x;", WIN1252CP[(unsigned char) (*line) - WIN1252CP_length]);
 
 	  if (unicode_entity) {
@@ -1117,7 +1117,7 @@ char *unconvchars(char *line)
 }
 
 /*
- * translatechars() is just a ripoff of convertchars() 
+ * translatechars() is just a ripoff of convertchars()
  * with a different argument list.
  */
 
@@ -1174,7 +1174,7 @@ static char *translateurl(char *line, int in_mailcommand)
   char hexbuf[16];
   struct Push buff;
   INIT_PUSH(buff);		/* init macro */
-  
+
   for(; *line; line++){
     if(isalnum((int)*line)){
       PushByte(&buff,*line);
@@ -1251,7 +1251,7 @@ static char *translateurl(char *line, int in_mailcommand)
 	break;
       }
     }
-  } 
+  }
   RETURN_PUSH(buff);
 }
 
@@ -1344,7 +1344,7 @@ char *makemailcommand(char *mailcommand, char *email, char *id, char *subject)
   char *newcmd = NULL, *newcmd2=NULL, *cp;
   char *tmpsubject=NULL;
   char *convsubj=NULL,*convemail=NULL,*convid=NULL;
-   
+
   if ((cp = strrchr(email, ' ')) != NULL)
     *cp = '\0';
 
@@ -1364,7 +1364,7 @@ char *makemailcommand(char *mailcommand, char *email, char *id, char *subject)
     convemail=translateurl(email,0);
   }
   convid=translateurl(id,0);
-   
+
   /* escape mailcommand, with keeping some delimiters */
   newcmd = translateurl(mailcommand,1);
 
@@ -1385,7 +1385,7 @@ char *makemailcommand(char *mailcommand, char *email, char *id, char *subject)
   }
   free(convid);
   free(newcmd2);
-   
+
   /* put subject */
   if (subject && strlen(subject)>0){
     newcmd2 = replace(newcmd, "$SUBJECT", convsubj);
@@ -1399,7 +1399,7 @@ char *makemailcommand(char *mailcommand, char *email, char *id, char *subject)
 }
 
 /*
-** Generates the inreplyto command to use from the 
+** Generates the inreplyto command to use from the
 ** default inreplyto command and the the current ID of the
 ** message,
 **
@@ -1425,7 +1425,7 @@ char *makeinreplytocommand(char *inreplytocommand, char *id)
     newcmd = replace (inreplytocommand, "$ID", "");
   }
   free (convid);
-   
+
   return newcmd;
 }
 
@@ -1453,7 +1453,7 @@ char *unspamify(char *s)
 **
 **
 **        //<user>:<password>@<host>:<port>/<url-path>
-** 
+**
 ** Some or all of the parts "<user>:<password>@", ":<password>",
 ** ":<port>", and "/<url-path>" may be excluded.  The scheme specific
 ** data start with a double slash "//" to indicate that it complies with
@@ -1471,7 +1471,7 @@ char *parseemail(char *input,	/* string to parse */
     char *ptr;
     char *lastpos = input;
     struct Push buff;
-    
+
     char *at;
     int at_len;
 
@@ -1533,7 +1533,7 @@ char *parseemail(char *input,	/* string to parse */
 			PushNString(&buff, lastpos, email - lastpos);
 		    }
 
-                    trio_snprintf(mailaddr, sizeof(mailaddr),"%.*s%s%s", 
+                    trio_snprintf(mailaddr, sizeof(mailaddr),"%.*s%s%s",
 				  ptr-email, email, at, mailbuff);
 
 		    if (valid_root_domain(mailaddr)) {
@@ -1584,25 +1584,6 @@ static char *url[] = {
     "http://",
     "https://",
     "ftp://",
-#if 0
-    "file://",/* can expose private files outside the archive in some cases? */
-#endif
-    "gopher://",
-    "nntp://",
-    /* "wais://", */ /* deprecated */
-    "telnet://",
-    "prospero://", /* deprecated */
-/* "mailto:", *//* Can't have mailto: as it will be converted twice */
-    "tel:",
-    "fax:",
-    "rtsp://",
-    "im:",
-    /* some non RFC or experimental or de-facto ones */
-    "cap://",
-    "feed://",
-    "webcal://",
-    "irc://",
-    "callto:",
     NULL
 };
 
@@ -1624,15 +1605,15 @@ char *parseurl(char *input, char *charset)
 	 * of the lines we process don't have any URL. Let's not spend any
 	 * time looking for URLs in lines that we can prove cheaply don't
 	 * have any; it will be a big win for average input if we follow
-	 * this trivial heuristic. 
+	 * this trivial heuristic.
 	 */
 	return convchars(input, charset);
     }
     INIT_PUSH(buff);
 
     /*
-     * Iterate on possible URLs in the input string. There might 
-     * be more than one! 
+     * Iterate on possible URLs in the input string. There might
+     * be more than one!
      */
 
     inputp = input;
@@ -1650,9 +1631,9 @@ char *parseurl(char *input, char *charset)
 	    int i;
 
 	    if (first) {
-		/* 
+		/*
 		 * we haven't looked for this one yet, so do so and remember
-		 * any match we find 
+		 * any match we find
 		 */
 		match[up - url] = p = strcasestr(inputp, *up);
 	    }
@@ -1660,7 +1641,7 @@ char *parseurl(char *input, char *charset)
 		/*
                  * we looked for it before, and we found it before, so if the
 		 * match is to the right of the input we have processed so
-		 * far, we can simply reuse it; else, search again. 
+		 * far, we can simply reuse it; else, search again.
 		 */
 		if (match[i] <= inputp)
 		    match[i] = p = strcasestr(inputp, *up);
@@ -1671,15 +1652,15 @@ char *parseurl(char *input, char *charset)
 		/*
                  * we looked for it before, and we didn't find it before, so
 		 * we aren't bloody likely to find it this time; don't waste
-		 * time looking again 
+		 * time looking again
                  */
 		continue;
 	    }
 
 	    if (p) {
 		/*
-                 * Found a protocol prefix. We want the leftmost such, 
-                 * so note the match and keep looking for other protocols. 
+                 * Found a protocol prefix. We want the leftmost such,
+                 * so note the match and keep looking for other protocols.
                  */
 		if (!leftmost || p < leftmost) {
 		    char *endp;
@@ -1689,6 +1670,7 @@ char *parseurl(char *input, char *charset)
 		    endp = strstr(p, "://");
 		    if (endp) {
 			len = endp - p + 3;
+			if (len > 200) { continue; }
 			strncpy(thisprotocol, p, len);
 			thisprotocol[len] = '\0';
 		    }
@@ -1702,10 +1684,10 @@ char *parseurl(char *input, char *charset)
 	    int accepted = FALSE;
 	    int urlscan = FALSE;
 
-	    /* 
+	    /*
 	     * all the charaters between the position where we started
              * looking for a protocol prefix and the protocol prefix
-             * need to be checked for character translations 
+             * need to be checked for character translations
 	     */
 
 	    translatechars(inputp, leftmost-1, &buff);
@@ -1717,23 +1699,23 @@ char *parseurl(char *input, char *charset)
 		    urlscan = sscanf(inputp, "%255[^] )<>\"\'\n[\t\\]", urlbuff);
 	    if (urlscan == 1) {
 	        char *r;
-	
-		/* 
+
+		/*
 		 * A valid url: up to 255 characters in a run containing legal
 		 * URL characters. But let's nibble off any punctuation other
 		 * than slashes at the end, because they are not likely part
-		 * of the URL. E.g. a trailing comma. 
+		 * of the URL. E.g. a trailing comma.
 		 */
 
-		for(r = strchr(urlbuff, '\0') - 1; 
+		for(r = strchr(urlbuff, '\0') - 1;
 		    *r != '/' && ispunct(*r) && r > urlbuff;
 		    r--);
 		if(r++ > urlbuff) {
 
-		    /* 
+		    /*
 		     * there should be something left in the URL after we chew
 		     * away the trailing punctuation if we are going to call it
-		     * valid 
+		     * valid
 		     */
 
 		    accepted = TRUE;
@@ -1758,7 +1740,7 @@ char *parseurl(char *input, char *charset)
 	} else {
 	    /*
 	     * no prospects found; translate the characters in the rest of
-	     * the string and return 
+	     * the string and return
 	     */
 	    translatechars(inputp, strchr(inputp, '\0') - 1, &buff);
 	    break;
@@ -1796,7 +1778,7 @@ iso2022_state(const char *str, int *state, int *esclen)
 	}
 
 	switch (*(str+1)) {
-	case '$':	
+	case '$':
 		if (*(str+2) == 'B' || *(str+2) == '@' || *(str+2) == 'A') {
 			/*
 			 * ESC $ B	JIS X 0208-1983 to G0
@@ -1844,7 +1826,7 @@ hm_strchr(const char *str, int ch)
 		return(strchr(str, ch));
 	} else {
 		int in_ascii = TRUE, esclen = 0;
-	
+
 		for (; *str; str++) {
 			iso2022_state(str, &in_ascii, &esclen);
 			if (esclen) str += esclen;
