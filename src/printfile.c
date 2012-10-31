@@ -235,7 +235,6 @@ void print_main_header(FILE *fp, bool index_header, char *label, char *name,
     else
       rp = "ISO-8859-1";
     fprintf(fp,
-	    "<?xml version=\"1.0\" encoding=\"%s\"?>\n"
 	    "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n"
 	    "    \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n",
 	    rp);
