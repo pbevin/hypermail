@@ -1499,6 +1499,8 @@ void print_headers(FILE *fp, struct emailinfo *email, int in_thread_file)
   /* date */
   fprintf(fp, "<span id=\"date\"><dfn>%s</dfn>: %s</span><br />\n", lang[MSG_CDATE], email->datestr);
 
+  fprintf(fp, "<?php include \"reply.php\" ?>\n");
+  fprintf(fp, "<?php reply (%d) ?>\n", email->fromdate);
   printheaders (fp, email);
 
   fprintf(fp, "</address>\n");
