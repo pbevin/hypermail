@@ -1975,6 +1975,9 @@ int parsemail(char *mbox,	/* file name */
 			else if (!strncasecmp(ptr, "8BIT", 4)) {
 			    decode = ENCODE_NORMAL;
 			}
+			else if (!strncasecmp(ptr, "binary", 4)) {
+			    decode = ENCODE_NORMAL;
+			}
 			else if (!strncasecmp(ptr, "7BIT", 4)) {
 			    decode = ENCODE_NORMAL;
 			}
