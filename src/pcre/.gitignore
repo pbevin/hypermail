@@ -1,0 +1,12 @@
+/.libs
+/RunTest
+/chartables.c
+/config.h
+/config.log
+/config.status
+/dftables
+/libtool
+/pcre-config
+/pcre.h
+/pcregrep
+/pcretest

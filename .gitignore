@@ -1,0 +1,14 @@
+*.o
+*.dSYM
+*.a
+*.lo
+*.la
+Makefile
+/archive/msg2archive
+/archive/rdmsg
+/config.h
+/config.cache
+/config.log
+/config.status
+/src/defaults.h
+/tests/testhm
