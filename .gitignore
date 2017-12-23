@@ -6,9 +6,14 @@
 Makefile
 /archive/msg2archive
 /archive/rdmsg
+/archive/.hypermail.lock
 /config.h
 /config.cache
 /config.log
 /config.status
 /src/defaults.h
+/src/getdate.c
+/src/hypermail
+/src/lang
+/src/mail
 /tests/testhm
